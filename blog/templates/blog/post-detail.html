@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% block head %}
+    <title>Главная</title>
+    <meta name="description" content="Главная страница блога"/>
+    <meta name="keywords" content="блог"/>
+{% endblock %}
+ 
+{% block main %}
+
+    <div class="blog-post">
+        <h2 class="blog-post-title">{{ object.title }}</h2>
+        <p class="blog-post-meta"><span>{{ object.created }}</span> от {{ object.author}}</p>
+        <p>{{ object.description }}</p>
+    </div>
+
+{% endblock %}
+

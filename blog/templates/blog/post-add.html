@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title>Добавление поста</title>
+    <meta name="description" content="Добавление поста"/>
+    <meta name="keywords" content="блог"/>
+{% endblock %}
+{% block main %}
+
+<form action="{% url 'post_add' %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy}}
+    <input type="submit" value="Submit">
+</form>
+{% endblock main %}

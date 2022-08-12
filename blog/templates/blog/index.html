@@ -1,0 +1,70 @@
+
+{% extends 'base.html' %}
+{% block head %}
+    <title>Главная</title>
+    <meta name="description" content="Главная страница блога"/>
+    <meta name="keywords" content="блог"/>
+{% endblock %}
+ 
+{% block main %}
+<h1 class="pb-3">Главная</h1>
+
+
+    <div class="row mb-2">
+
+        {% for post in page_obj %}
+        
+        <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-success">Категория</strong>
+                    <h3 class="mb-0"><a href="{{ post.get_absolute_url }}"><b>{{ post.title }}</b></a></h3>
+                <div class="mb-1 text-muted">{{ post.created }}</div>
+                    <p class="mb-auto">{{ post.description|truncatechars:70 }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="stretched-link">Продолжить чтение</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <b>Статьи не найдены</b>
+        {% endfor %}
+
+        
+    </div>
+    <div class="row flex justify-content-center align-items-center ">
+        <nav aria-label="...">
+            <ul class="pagination">
+
+
+                {% if page_obj.has_previous %}
+                    <a class="page-link" href="?page=1">&laquo; Первая</a>
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">Первая</a>
+                    </li>
+                {% endif %}
+            
+
+                <span class="page-item active">
+                    <a class="page-link" href="#">{{ page_obj.number }} </a>
+                </span>
+
+            
+            
+                {% if page_obj.has_next %}
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">Последняя</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+{% endblock %}
